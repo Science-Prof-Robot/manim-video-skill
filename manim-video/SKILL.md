@@ -1,6 +1,6 @@
 ---
 name: manim-video
-description: Create Manim animations with optional voiceover (manim-voiceover), git-based scene versioning, pinned requirements, organized asset folders, and GIF approval previews before final MP4. Use for educational or technical motion graphics; always clarify design theme with the user first.
+description: Create Manim animations with optional voiceover (manim-voiceover), git-based scene versioning, pinned requirements, organized asset folders, GIF approval previews, and a vision verification loop (extract frames, multimodal review in Cursor/Claude Code, structured feedback, iterate). Use for educational or technical motion graphics; always clarify design theme with the user first.
 ---
 
 # Manim video (animation + voiceover + versioning)
@@ -13,13 +13,14 @@ This skill ships helper code under `references/` (palette, optional Gemini TTS a
 2. **Pinned dependencies** — Every project keeps a root **`requirements.txt`** (seeded on `init()` from this skill’s template). When you add imports or optional stacks (e.g. Gemini), **update `requirements.txt`** and tell the user to `pip install -r requirements.txt`. For reproducible CI, suggest `pip freeze > requirements.lock.txt` after upgrades.
 3. **Assets live in `assets/`** — Put images, SVGs, and custom fonts under `assets/images`, `assets/svgs`, `assets/fonts`. Keep `scenes/` for Python only so diffs stay readable.
 4. **GIF before final MP4** — For stakeholder approval, produce a **low-quality GIF** (fast, easy to share in chat). Use `ManimProject.render_approval_gif("scene_1")` or `render(..., output_format="gif", export_approval_copy=True)`. After sign-off, render **`output_format="movie"`** (default) at the target quality.
+5. **Verify with vision, then iterate** — After each substantive render, run the **verification loop** below: slice frames, review with the host model’s **vision**, write `VERIFICATION_FEEDBACK.md`, fix Manim code, re-render. Prefer **MP4** for final verification passes; **GIF** is acceptable for quick layout checks.
 
 ## Requirements
 
 - **Python** 3.9+
 - **manim** — `pip install manim` (versions pinned in project `requirements.txt`)
 - **manim-voiceover** with a TTS backend — e.g. `pip install "manim-voiceover[gtts]"` (uses network for gTTS unless you switch engine)
-- **ffmpeg** — with `libx264` and `libass` if you burn subtitles (see `scripts/run_pipeline.py`)
+- **ffmpeg** and **ffprobe** — with `libx264` and `libass` if you burn subtitles (see `scripts/run_pipeline.py`); **ffprobe** is required for `extract_verification_frames.py`
 - **git** — for `ManimProject` versioning commands
 
 Optional:
@@ -101,8 +102,10 @@ my_animation/
 │   ├── images/
 │   ├── svgs/
 │   └── fonts/
+├── VERIFICATION_FEEDBACK.md   # Latest multimodal review output (agent-written; optional until first review)
 ├── exports/
-│   └── approvals/         # GIF (or other) previews for sign-off
+│   ├── approvals/         # GIF (or other) previews for sign-off
+│   └── verification/    # Frame slices + manifest.json per run (see extract script)
 ├── scenes/
 │   ├── scene_1/
 │   │   ├── scene_1.py
@@ -263,6 +266,68 @@ project.render_approval_gif("scene_1")
 
 If your Manim build errors on `--format`, upgrade Manim (Community ≥ 0.18) or use a two-step pipeline: render draft MP4, then `ffmpeg` to GIF (document in project README if needed).
 
+## Verification loop (required after substantive renders)
+
+This skill does **not** call cloud LLM APIs from Python. **Cursor** or **Claude Code** performs multimodal review using extracted stills.
+
+### When to run
+
+- After any render that changes **layout, copy, colors, or story beats** (including a new GIF approval cut).
+- **Final checks** should use a **full-quality MP4** when possible; GIFs are fine for early layout passes.
+
+### Step 1 — Extract frames
+
+From the **animation project root** (or pass `--cwd`), run:
+
+```bash
+python path/to/manim-video/scripts/extract_verification_frames.py path/to/render.mp4
+```
+
+Optional: `--count 10`, `--format png`, `--output-dir exports/verification/my_run`.
+
+This writes a timestamped folder under `exports/verification/` with JPEG/PNG frames and **`manifest.json`** (`t_seconds`, `pct`, `filename` per frame).
+
+### Step 2 — Multimodal review (host agent)
+
+1. Read **`manifest.json`** and open **every** extracted frame (vision).
+2. Read **`DESIGN_THEME.md`** and the agreed **storyboard / scene plan** (what each beat must prove).
+3. Apply [`references/video_verification_rubric.md`](references/video_verification_rubric.md): padding and safe margins, typography, theme colors, **logical progression** vs plan, motion hints between samples, glitches.
+
+### Step 3 — Write `VERIFICATION_FEEDBACK.md` (project root)
+
+Use this structure:
+
+```markdown
+# Verification feedback
+
+## Verdict
+PASS | PASS_WITH_ISSUES | FAIL
+
+## Summary
+2–4 sentences.
+
+## Issues
+### P0 — (title)
+- Evidence: frame `frame_03_...jpg` — t=…s, pct=…%
+- Expected: …
+- Observed: …
+- Suggested fix: … (Manim: e.g. `buff=`, `to_edge`, `shift`, color constant, reorder `play`)
+
+### P1 — …
+
+## Next iteration
+Ordered list of edits to the scene file(s), then re-render and re-run extraction.
+```
+
+### Step 4 — Iterate
+
+1. Implement **P0** then **P1** (then P2) in Manim source.
+2. Re-render the same deliverable type you are validating.
+3. Re-run **`extract_verification_frames.py`** on the new file (new output folder preserves history).
+4. Repeat until **Verdict is PASS** or **PASS_WITH_ISSUES** with only acceptable P2 items.
+
+**Round cap:** default **3** full verify cycles unless the user explicitly asks for more.
+
 ## Pipeline helper (optional)
 
 `scripts/run_pipeline.py` wraps render + optional subtitle burn-in. `scripts/check_environment.py` verifies common dependencies.
@@ -284,6 +349,7 @@ If your Manim build errors on `--format`, upgrade Manim (Community ≥ 0.18) or 
 7. Shared utilities live under `scenes/shared/`; binaries only under `assets/`.
 8. Keep voiceover text TTS-friendly (plain punctuation, avoid noisy symbols).
 9. Target ~10–15s per scene for short-form vertical if that is the deliverable.
+10. **Close the verification loop** — Do not treat a render as done until frames are extracted and `VERIFICATION_FEEDBACK.md` records a PASS (or user accepts PASS_WITH_ISSUES).
 
 ## Troubleshooting
 
@@ -294,6 +360,8 @@ If your Manim build errors on `--format`, upgrade Manim (Community ≥ 0.18) or 
 | Branch merge conflict | Resolve in scene file, then commit via project helpers |
 | Cache issues | Use `--disable_caching` |
 | TTS / API limits | Fall back to gTTS or another `SpeechService` |
+| `ffprobe` / frame extract fails | Install full `ffmpeg` package; ensure `ffprobe` is on `PATH` |
+| Empty or black frames | Re-sample with higher `--count` or inspect source video; check `-ss` timing |
 
 ## Optional follow-on
 

@@ -4,13 +4,13 @@ Portable **Cursor** and **Claude Code** skill for [Manim](https://www.manim.comm
 
 The agent-facing instructions live in [`manim-video/SKILL.md`](manim-video/SKILL.md). Install by placing the `manim-video` folder in a skills directory (see below).
 
-**Behavior highlights:** `ManimProject.init()` seeds **`requirements.txt`**, **`DESIGN_THEME.md`**, **`assets/{images,svgs,fonts}`**, and **`exports/approvals/`**. Agents are instructed to confirm a **design theme** with the user before coding, keep dependencies in **`requirements.txt`**, and use **GIF previews** (`render_approval_gif`) for approval before final MP4 renders.
+**Behavior highlights:** `ManimProject.init()` seeds **`requirements.txt`**, **`DESIGN_THEME.md`**, **`assets/{images,svgs,fonts}`**, **`exports/approvals/`**, and **`exports/verification/`**. Agents confirm a **design theme** first, keep **`requirements.txt`** accurate, use **GIF previews** where useful, then run a **vision verification loop**: `scripts/extract_verification_frames.py` (needs **ffmpeg** + **ffprobe**) slices the render; **Cursor** or **Claude Code** reviews frames against `references/video_verification_rubric.md` and writes **`VERIFICATION_FEEDBACK.md`** before the next iteration.
 
 ## Prerequisites
 
 - Python 3.9+
 - [Manim Community](https://docs.manim.community/en/stable/installation.html) (`pip install manim`)
-- [ffmpeg](https://ffmpeg.org/) (with `libx264`; add `libass` if you burn subtitles)
+- [ffmpeg](https://ffmpeg.org/) and **ffprobe** (with `libx264`; add `libass` if you burn subtitles; **ffprobe** is used for frame extraction)
 - [git](https://git-scm.com/) (for `ManimProject` versioning)
 - Optional: `pip install "manim-voiceover[gtts]"` for narrated scenes
 - Optional: `pip install google-genai` and `GEMINI_API_KEY` for Gemini TTS
@@ -56,14 +56,24 @@ cp -R /path/to/manim-video-skill/manim-video .claude/skills/
 
 Restart the IDE or start a new agent session so the skill is picked up.
 
+## Vision verification loop
+
+After a render (prefer **MP4** for final QA):
+
+```bash
+python manim-video/scripts/extract_verification_frames.py path/to/scene.mp4 --count 8
+```
+
+The agent reads the frames + `DESIGN_THEME.md` + storyboard, applies [`manim-video/references/video_verification_rubric.md`](manim-video/references/video_verification_rubric.md), and produces **`VERIFICATION_FEEDBACK.md`** in the project. See **`SKILL.md`** for the full loop and iteration cap.
+
 ## Repository layout
 
 ```text
 manim-video/
 ├── SKILL.md              # Instructions for the agent
 ├── requirements.txt      # Template copied into new animation projects by ManimProject.init()
-├── scripts/              # run_pipeline.py, check_environment.py
-└── references/           # manim_versioning, palette, manim_guide, optional Gemini TTS
+├── scripts/              # run_pipeline.py, check_environment.py, extract_verification_frames.py
+└── references/           # manim_versioning, palette, rubric, manim_guide, optional Gemini TTS
 ```
 
 Generated Manim projects should add `references/` (from this skill or a copy inside the project) to `sys.path` as described in `SKILL.md`.

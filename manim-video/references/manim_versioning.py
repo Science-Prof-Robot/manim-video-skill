@@ -75,6 +75,7 @@ class ManimProject:
         Creates:
         - ``assets/{images,svgs,fonts}`` for static art (keep binaries out of ``scenes/``).
         - ``exports/approvals`` for low-res GIFs used to sign off motion before final MP4.
+        - ``exports/verification`` for frame slices + manifests used in the agent vision loop.
         - ``requirements.txt`` (canonical Manim + voiceover pins) unless already present.
         - ``DESIGN_THEME.md`` template unless already present — agents must fill with user.
         """
@@ -104,6 +105,10 @@ class ManimProject:
         # GIF previews for stakeholder approval (fast to share in chat / email).
         approvals = self.project_path / "exports" / "approvals"
         approvals.mkdir(parents=True, exist_ok=True)
+
+        # Still frames + manifest.json from extract_verification_frames.py for multimodal review.
+        verification = self.project_path / "exports" / "verification"
+        verification.mkdir(parents=True, exist_ok=True)
 
         req_file = self.project_path / "requirements.txt"
         if not req_file.exists():
