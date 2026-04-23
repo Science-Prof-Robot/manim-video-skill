@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Environment check script for the manim-video skill.
+Environment check script for the recursive-maths-animator skill.
 Verifies all required dependencies are installed and configured.
 """
 

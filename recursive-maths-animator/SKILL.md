@@ -1,9 +1,9 @@
 ---
-name: manim-video
-description: Create Manim animations with optional voiceover (manim-voiceover), git-based scene versioning, pinned requirements, organized asset folders, GIF approval previews, and a vision verification loop (extract frames, multimodal review in Cursor/Claude Code, structured feedback, iterate). Use for educational or technical motion graphics; always clarify design theme with the user first.
+name: recursive-maths-animator
+description: Recursive maths animator — Manim-based technical animations with optional voiceover (manim-voiceover), git scene versioning, pinned requirements, asset folders, GIF approval previews, and a vision verification loop (frame extract, multimodal review in Cursor/Claude Code, VERIFICATION_FEEDBACK.md, iterate). Clarify design theme with the user first.
 ---
 
-# Manim video (animation + voiceover + versioning)
+# Recursive maths animator (Manim + voiceover + verification)
 
 This skill ships helper code under `references/` (palette, optional Gemini TTS adapter, `manim_versioning.ManimProject`) and utilities under `scripts/`. Agents should point users at those paths when generating projects.
 
@@ -36,8 +36,8 @@ from pathlib import Path
 import sys
 
 # Path to the installed skill’s references/ folder (adjust if you symlink or copy the skill).
-SKILL_REF = Path.home() / ".cursor/skills/manim-video/references"  # example: Cursor user skill
-# SKILL_REF = Path("path/to/manim-video-skill/manim-video/references")
+SKILL_REF = Path.home() / ".cursor/skills/recursive-maths-animator/references"  # example: Cursor user skill
+# SKILL_REF = Path("path/to/manim-video-skill/recursive-maths-animator/references")
 
 sys.path.insert(0, str(SKILL_REF.resolve()))
 from manim_versioning import ManimProject
@@ -59,7 +59,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "references"))
 from pathlib import Path
 import sys
 
-REF = Path("/path/to/manim-video/references").resolve()
+REF = Path("/path/to/recursive-maths-animator/references").resolve()
 sys.path.insert(0, str(REF))
 from manim_versioning import ManimProject
 
@@ -280,7 +280,7 @@ This skill does **not** call cloud LLM APIs from Python. **Cursor** or **Claude 
 From the **animation project root** (or pass `--cwd`), run:
 
 ```bash
-python path/to/manim-video/scripts/extract_verification_frames.py path/to/render.mp4
+python path/to/recursive-maths-animator/scripts/extract_verification_frames.py path/to/render.mp4
 ```
 
 Optional: `--count 10`, `--format png`, `--output-dir exports/verification/my_run`.
