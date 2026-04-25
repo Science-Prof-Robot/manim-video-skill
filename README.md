@@ -173,6 +173,10 @@ npx --yes clawhub@latest update recursive-maths-animator --force
 
 ClawHub runs **VirusTotal Code Insight** on published skills. This repo legitimately documents API keys, optional cloud helpers, and similar patterns in `SKILL.md` and `references/`, so the bundle can be **flagged as “suspicious.”** Then:
 
+#### Why ClawHub can show **VirusTotal: Suspicious** and **OpenClaw: Benign** at the same time
+
+Those rows come from **different checks**. **OpenClaw** (and the capability badge such as “requires sensitive credentials”) is a **policy / intent** review of what the skill is allowed to do. **VirusTotal** on ClawHub is mainly **static Code Insight** on the published archive: it often scores **“suspicious”** for **documentation and scripts** that mention credentials, subprocesses, HTTP clients, or similar—without claiming the bundle is malware. **Zenbox** (or another VT **dynamic** sandbox) can still return **“Non Malicious”** for the same zip; static and dynamic verdicts **do not have to match**, and **you cannot rely on Code Insight alone** to flip to “clean” without stripping legitimate guidance from the skill. After you trust the **Git source** and the **OpenClaw** summary, use **`--force`** on `clawhub` when non-interactive installs require it.
+
 - **`clawhub install`** fails in **non-interactive** mode unless you pass **`--force`** (only after you trust the source, like any third-party package).
 - **`clawhub update`** **skips** the skill (exit code 0) and prints a warning unless you pass **`--force`**.
 
