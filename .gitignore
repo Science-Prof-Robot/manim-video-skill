@@ -50,6 +50,10 @@ media/
 *.gif
 *.mov
 
+# Example videos (committed to repo)
+!videos/
+!videos/*.mp4
+
 # Secrets
 .env
 *.pem

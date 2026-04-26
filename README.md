@@ -37,11 +37,11 @@ No LaTeX installation. No complex setup. Just working animations.
 
 ### Table-to-Graph Transformations
 
-| Pattern | Use Case |
-|---------|----------|
-| **TableToBarChartPattern** | Quarterly reports, category comparisons |
-| **TableToLineGraphPattern** | Time series, trends over months |
-| **TableToScatterPlotPattern** | Correlation analysis, relationships |
+| Pattern | Use Case | Video |
+|---------|----------|-------|
+| **TableToBarChartPattern** | Quarterly reports, category comparisons | [▶️ Watch](videos/TableToBarChartPattern.mp4) |
+| **TableToLineGraphPattern** | Time series, trends over months | [▶️ Watch](videos/TableToLineGraphPattern.mp4) |
+| **TableToScatterPlotPattern** | Correlation analysis, relationships | [▶️ Watch](videos/TableToScatterPlotPattern.mp4) |
 
 ```python
 from references.pattern_library import TableToBarChartPattern
@@ -51,13 +51,15 @@ scene.bar_colors = [BLUE, GREEN, YELLOW, RED]
 scene.render()   # → 19.3s animated video with voiceover
 ```
 
+📹 **See it in action:** [TableToBarChartPattern.mp4](videos/TableToBarChartPattern.mp4)
+
 ### Statistical Visualizations
 
-| Pattern | Use Case |
-|---------|----------|
-| **DistributionAnimation** | Normal/Gaussian curves, statistics education |
-| **FormulaDerivation** | Step-by-step math proofs, theorem explanations |
-| **SamplingVisualization** | Central Limit Theorem, sampling demos |
+| Pattern | Use Case | Video |
+|---------|----------|-------|
+| **DistributionAnimation** | Normal/Gaussian curves, statistics education | [▶️ Watch](videos/DistributionAnimation.mp4) |
+| **FormulaDerivation** | Step-by-step math proofs, theorem explanations | [▶️ Watch](videos/FormulaDerivation.mp4) |
+| **SamplingVisualization** | Central Limit Theorem, sampling demos | [▶️ Watch](videos/SamplingVisualization.mp4) |
 
 ```python
 from references.pattern_library import FormulaDerivation
@@ -66,13 +68,15 @@ scene.formula_steps = ["a² + b² = c²", "c = √(a² + b²)"]
 scene.render()   # → 17.2s video showing derivation with narration
 ```
 
+📹 **See it in action:** [FormulaDerivation.mp4](videos/FormulaDerivation.mp4)
+
 ### Pie Chart Animations
 
-| Pattern | Use Case |
-|---------|----------|
-| **BasicPieChart** | Market share, percentage breakdowns |
-| **StaggeredPieChart** | Exploded segments, emphasis |
-| **PieToBarTransition** | Same data, two perspectives |
+| Pattern | Use Case | Video |
+|---------|----------|-------|
+| **BasicPieChart** | Market share, percentage breakdowns | [▶️ Watch](videos/BasicPieChart.mp4) |
+| **StaggeredPieChart** | Exploded segments, emphasis | [▶️ Watch](videos/StaggeredPieChart.mp4) |
+| **PieToBarTransition** | Same data, two perspectives | [▶️ Watch](videos/PieToBarTransition.mp4) |
 
 ```python
 from references.pattern_library import StaggeredPieChart
@@ -81,6 +85,8 @@ scene.data = [("Product A", 40), ("Product B", 30), ("Product C", 30)]
 scene.explode_index = 0
 scene.render()   # → 21.8s video with sequential reveals and explode effect
 ```
+
+📹 **See it in action:** [StaggeredPieChart.mp4](videos/StaggeredPieChart.mp4)
 
 ### Video Gallery
 
