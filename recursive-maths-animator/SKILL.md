@@ -1,6 +1,6 @@
 ---
 name: recursive-maths-animator
-description: Recursive maths animator — Manim-based technical animations with optional voiceover (manim-voiceover), git scene versioning, pinned requirements, asset folders, GIF approval previews, and a vision verification loop (frame extract, multimodal review in Cursor/Claude Code, VERIFICATION_FEEDBACK.md, iterate). Brief-first workflow: pitch a digestible animation plan and design options, get user approval, then code; lock theme in DESIGN_THEME.md.
+description: Recursive maths animator — Manim-based technical and physics animations with optional voiceover, pinned requirements, responsive layout rules, frame verification, and final MP4 delivery. Includes mechanics, optics, fields, waves, and deterministic custom physics models.
 ---
 
 # Recursive maths animator (Manim + voiceover + verification)
@@ -36,10 +36,64 @@ Many users want something **cool, shareable, and minimal** — not a wall of tec
 4. **Optional GIF before final MP4** — When stakeholders need a quick motion check in chat, produce a **low-quality GIF** (`ManimProject.render_approval_gif("scene_1")` or `render(..., output_format="gif", export_approval_copy=True)`). If the user prefers to go straight to MP4 (e.g. silent cut with voiceover added later), **skip the GIF** and render MP4 directly. After any GIF sign-off, render **`output_format="movie"`** (MP4; see Rendering — Manim uses `--format mp4`).
 5. **Verify with vision, then iterate** — After each substantive render, run the **verification loop** below: slice frames, review with the host model’s **vision**, write `VERIFICATION_FEEDBACK.md`, fix Manim code, re-render. Prefer **MP4** for final verification passes; **GIF** is acceptable for quick layout checks.
 
+## Physics system
+
+Physics is part of the main workflow. Use `manim-physics==0.4.0` when the scene
+needs mechanics, optics, electromagnetism, waves, or rigid-body behavior. The
+companion [`recursive-maths-animator-physics/SKILL.md`](../recursive-maths-animator-physics/SKILL.md)
+contains the same detailed reference for hosts that discover skills separately.
+
+### Supported families
+
+- Mechanics: `SpaceScene`, gravity, rigid/static bodies, collisions, elasticity,
+  density, friction, and pendulums.
+- Optics: `Lens` and ray constructions.
+- Electromagnetism: charges, electric fields, wires, and magnetic fields.
+- Waves: linear, radial, and standing waves.
+- Custom ODE/PDE or particle models: deterministic Manim updaters or fixed-step
+  numerical models when a built-in object does not fit.
+
+Choose the narrowest scene base: `SpaceScene` for collisions, `Scene` plus a
+pendulum for simple swinging, and `Scene`/`ThreeDScene` for fields, waves, and
+custom visual models. State dimensionality, units, constants, initial and
+boundary conditions, integration method, and omitted effects. Do not present a
+qualitative or paraxial visualization as a full physical simulation.
+
+### Physics workflow
+
+1. Write a one-sentence physical thesis: what moves and why.
+2. Record assumptions and deterministic initial conditions.
+3. Prefer a built-in `manim-physics` object; use a fixed-step updater only when
+   necessary.
+4. For rigid mechanics, register bodies with `make_rigid_body` and boundaries
+   with `make_static_body`; set gravity and material parameters explicitly.
+5. Smoke-render, extract frames, and inspect stability, clipping, labels, and
+   motion before the final render.
+
+### Physics layout rules
+
+- Reserve explicit regions for the physical construction, live values, graphs,
+  and status text before placing objects.
+- Use the minimum words needed. Remove duplicate subtitles and captions.
+- Keep graph content clipped to its own frame. Moving objects, rays, and labels
+  must not enter the graph’s reserved region.
+- Inspect start, middle, transition, and end frames at target resolution. If
+  anything overlaps, clips, or becomes unreadable, resize or reposition the
+  affected group and rerender.
+
+### Physics example
+
+[`examples/convex_lens_object_to_infinity.py`](examples/convex_lens_object_to_infinity.py)
+shows a convex lens as the object moves from beside the lens through `u=f` and
+outward toward infinity. It includes virtual/upright and real/inverted regimes,
+a synchronized `u–v` graph, and a verified example video:
+[convex-lens MP4](https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4).
+
 ## Requirements
 
 - **Python** 3.9+
 - **manim** — `pip install manim` (versions pinned in project `requirements.txt`)
+- **manim-physics** — `manim-physics==0.4.0` for physics scenes
 - **manim-voiceover** with a TTS backend — e.g. `pip install "manim-voiceover[gtts]"` (uses network for gTTS unless you switch engine)
 - **ffmpeg** and **ffprobe** — with `libx264` and `libass` if you burn subtitles (see `scripts/run_pipeline.py`); **ffprobe** is required for `extract_verification_frames.py`
 - **git** — for `ManimProject` versioning commands
