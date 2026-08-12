@@ -105,12 +105,6 @@ recursive-maths-animator/
     └── SKILL.md              # compatibility/detail entry point
 ```
 
-## S3 publishing
-
-Use the local ignored publisher only after verification. Keep the allowed S3
-prefix narrow, such as `exponential-curve/<file>.mp4`, and never commit
-credentials, videos, `.venv`, or `.codex/skills/` upload helpers.
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
