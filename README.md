@@ -43,6 +43,26 @@ source .venv/bin/activate
   ConvexLensObjectToInfinity --format mp4 --disable_caching
 ```
 
+## Video examples
+
+The original verified examples are committed under [`videos/`](videos/):
+
+| Example | Video |
+|---|---|
+| Table to bar chart | [MP4](videos/TableToBarChartPattern.mp4) |
+| Table to line graph | [MP4](videos/TableToLineGraphPattern.mp4) |
+| Table to scatter plot | [MP4](videos/TableToScatterPlotPattern.mp4) |
+| Distribution animation | [MP4](videos/DistributionAnimation.mp4) |
+| Formula derivation | [MP4](videos/FormulaDerivation.mp4) |
+| Sampling visualization | [MP4](videos/SamplingVisualization.mp4) |
+| Basic pie chart | [MP4](videos/BasicPieChart.mp4) |
+| Staggered pie chart | [MP4](videos/StaggeredPieChart.mp4) |
+| Pie-to-bar transition | [MP4](videos/PieToBarTransition.mp4) |
+
+Physics example:
+
+- [Convex lens — object beside lens to infinity](https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4)
+
 ## Physics example
 
 The convex-lens example moves the object from beside the lens through the
@@ -84,12 +104,6 @@ recursive-maths-animator/
 └── recursive-maths-animator-physics/
     └── SKILL.md              # compatibility/detail entry point
 ```
-
-## S3 publishing
-
-Use the local ignored publisher only after verification. Keep the allowed S3
-prefix narrow, such as `exponential-curve/<file>.mp4`, and never commit
-credentials, videos, `.venv`, or `.codex/skills/` upload helpers.
 
 ## License
 
