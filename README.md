@@ -48,34 +48,34 @@ source .venv/bin/activate
 The original verified examples are committed under [`videos/`](videos/):
 
 <p><strong>Table to bar chart</strong></p>
-<video src="videos/TableToBarChartPattern.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/TableToBarChartPattern.mp4" type="video/mp4"></video>
 
 <p><strong>Table to line graph</strong></p>
-<video src="videos/TableToLineGraphPattern.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/TableToLineGraphPattern.mp4" type="video/mp4"></video>
 
 <p><strong>Table to scatter plot</strong></p>
-<video src="videos/TableToScatterPlotPattern.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/TableToScatterPlotPattern.mp4" type="video/mp4"></video>
 
 <p><strong>Distribution animation</strong></p>
-<video src="videos/DistributionAnimation.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/DistributionAnimation.mp4" type="video/mp4"></video>
 
 <p><strong>Formula derivation</strong></p>
-<video src="videos/FormulaDerivation.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/FormulaDerivation.mp4" type="video/mp4"></video>
 
 <p><strong>Sampling visualization</strong></p>
-<video src="videos/SamplingVisualization.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/SamplingVisualization.mp4" type="video/mp4"></video>
 
 <p><strong>Basic pie chart</strong></p>
-<video src="videos/BasicPieChart.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/BasicPieChart.mp4" type="video/mp4"></video>
 
 <p><strong>Staggered pie chart</strong></p>
-<video src="videos/StaggeredPieChart.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/StaggeredPieChart.mp4" type="video/mp4"></video>
 
 <p><strong>Pie-to-bar transition</strong></p>
-<video src="videos/PieToBarTransition.mp4" width="320" controls muted loop playsinline></video>
+<video width="640" controls muted loop playsinline><source src="https://raw.githubusercontent.com/Science-Prof-Robot/recursive-math-animator/main/videos/PieToBarTransition.mp4" type="video/mp4"></video>
 
 <p><strong>Physics: convex lens — object beside lens to infinity</strong></p>
-<video src="https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4" width="640" controls muted loop playsinline></video>
+<video width="800" controls muted loop playsinline><source src="https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4" type="video/mp4"></video>
 
 ## Physics example
 
@@ -85,7 +85,6 @@ real/inverted regimes, a taller lens, and a synchronized `u–v` graph confined
 to the bottom-left quarter.
 
 - Source: [`convex_lens_object_to_infinity.py`](recursive-maths-animator/examples/convex_lens_object_to_infinity.py)
-- Video: [convex-lens object-to-infinity MP4](https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4)
 - Local output: `media/videos/convex_lens_object_to_infinity/1080p60/`
 
 The scene is qualitative/paraxial and uses `1/f = 1/u + 1/v`; it is a visual
