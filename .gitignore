@@ -41,11 +41,18 @@ Thumbs.db
 # ClawHub CLI install metadata (lockfile)
 .clawhub/
 
+# Local AWS video publisher (intentionally not committed)
+.codex/skills/recursive-animation-s3/
+.aws/
+aws-credentials*
+credentials
+
 # Training workspace
 .training/
 
 # Manim output
 media/
+exports/
 *.mp4
 *.gif
 *.mov
@@ -62,6 +69,13 @@ media/
 # Logs
 *.log
 logs/
+
+# Deployment state and generated infrastructure output
+.terraform/
+*.tfstate
+*.tfstate.*
+.serverless/
+.cdk.out/
 
 # Temporary files
 tmp/

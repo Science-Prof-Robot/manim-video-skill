@@ -8,6 +8,8 @@
 
 manim>=0.18.0
 manim-voiceover[gtts]>=0.3.1
+boto3>=1.34.0
+manim-physics==0.4.0
 
 # Optional: Gemini TTS (set GEMINI_API_KEY). Uncomment if you use gemini_tts_service.py.
 # google-genai>=1.0.0
