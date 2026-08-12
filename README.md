@@ -47,21 +47,35 @@ source .venv/bin/activate
 
 The original verified examples are committed under [`videos/`](videos/):
 
-| Example | Video |
-|---|---|
-| Table to bar chart | [MP4](videos/TableToBarChartPattern.mp4) |
-| Table to line graph | [MP4](videos/TableToLineGraphPattern.mp4) |
-| Table to scatter plot | [MP4](videos/TableToScatterPlotPattern.mp4) |
-| Distribution animation | [MP4](videos/DistributionAnimation.mp4) |
-| Formula derivation | [MP4](videos/FormulaDerivation.mp4) |
-| Sampling visualization | [MP4](videos/SamplingVisualization.mp4) |
-| Basic pie chart | [MP4](videos/BasicPieChart.mp4) |
-| Staggered pie chart | [MP4](videos/StaggeredPieChart.mp4) |
-| Pie-to-bar transition | [MP4](videos/PieToBarTransition.mp4) |
+<p><strong>Table to bar chart</strong></p>
+<video src="videos/TableToBarChartPattern.mp4" width="320" controls muted loop playsinline></video>
 
-Physics example:
+<p><strong>Table to line graph</strong></p>
+<video src="videos/TableToLineGraphPattern.mp4" width="320" controls muted loop playsinline></video>
 
-- [Convex lens — object beside lens to infinity](https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4)
+<p><strong>Table to scatter plot</strong></p>
+<video src="videos/TableToScatterPlotPattern.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Distribution animation</strong></p>
+<video src="videos/DistributionAnimation.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Formula derivation</strong></p>
+<video src="videos/FormulaDerivation.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Sampling visualization</strong></p>
+<video src="videos/SamplingVisualization.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Basic pie chart</strong></p>
+<video src="videos/BasicPieChart.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Staggered pie chart</strong></p>
+<video src="videos/StaggeredPieChart.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Pie-to-bar transition</strong></p>
+<video src="videos/PieToBarTransition.mp4" width="320" controls muted loop playsinline></video>
+
+<p><strong>Physics: convex lens — object beside lens to infinity</strong></p>
+<video src="https://ashish-random-videos.s3.amazonaws.com/exponential-curve/convex-lens-object-to-infinity.mp4" width="640" controls muted loop playsinline></video>
 
 ## Physics example
 
